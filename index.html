@@ -99,11 +99,10 @@ async function aboutblankCloak(url) {
       win.document.close();
       rewireLinks();
     } catch (e) {
-      // Show error message, but do NOT redirect!
-      win.document.body.innerHTML =
-        "<h2 style='font-family:sans-serif;text-align:center;margin-top:2em;'>Failed to load site.<br><small>" +
-        String(e).replace(/</g,"&lt;") +
-        "<br>This might be because of CORS or site blocking direct loads.</small></h2>";
+      // Show popup and redirect the original tab to the URL
+      alert("Failed to load the website in the embedded viewer due to CORS or blocking. You will be redirected to the original website.");
+      window.location.href = href;
+      try { win.close(); } catch {}
     }
   }
   // Intercept all links for same-tab loading
