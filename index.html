@@ -99,8 +99,11 @@ async function aboutblankCloak(url) {
       win.document.close();
       rewireLinks();
     } catch (e) {
-      // Fallback: redirect to the real site if failed to load content
-      win.location.href = href;
+      // Show error message, but do NOT redirect!
+      win.document.body.innerHTML =
+        "<h2 style='font-family:sans-serif;text-align:center;margin-top:2em;'>Failed to load site.<br><small>" +
+        String(e).replace(/</g,"&lt;") +
+        "<br>This might be because of CORS or site blocking direct loads.</small></h2>";
     }
   }
   // Intercept all links for same-tab loading
