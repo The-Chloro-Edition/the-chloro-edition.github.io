@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blank Launcher</title>
+</head>
+<body>
+<script>
+  // Replace this with your actual proxy URL
+  const url = "https://your-proxy-or-site-url-here";
+
+  // Open about:blank tab
+  let win = window.open("about:blank", "_blank");
+
+  // Write your site inside that tab
+  fetch(url)
+    .then(r => r.text())
+    .then(html => {
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    })
+    .catch(e => {
+      win.document.body.innerHTML = "Error loading page.";
+    });
+</script>
+
+Opening…
+</body>
+</html>
