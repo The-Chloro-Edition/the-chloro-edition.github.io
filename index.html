@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>The Chloro Eddition</title>
+  <title>The Chloro Edition</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
     body {
@@ -67,7 +67,7 @@
 </head>
 <body>
   <div class="centerbox">
-    <h2>aboutblank-cloaker</h2>
+    <h2>The Chloro Edition</h2>
     <form id="urlForm" autocomplete="off" onsubmit="return false;">
       <input id="urlInput" type="text" spellcheck="false" placeholder="Enter website URL">
       <button id="goBtn" type="submit">Go</button>
@@ -89,18 +89,18 @@ async function aboutblankCloak(url) {
   if (!win) { alert("Popup blocked!"); return; }
   // Chain loader for navigation
   async function loadPage(href) {
-    // Simple loader
     win.document.body.innerHTML = '<div style="text-align:center;margin-top:2.5em;font-family:sans-serif">Loading...<br><span style="font-size:44px;">⏳</span></div>';
     try {
       const resp = await fetch(href, { mode: 'cors' });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
       const text = await resp.text();
       win.document.open();
       win.document.write(text);
       win.document.close();
       rewireLinks();
     } catch (e) {
-      win.document.body.innerHTML =
-        "<h2 style='font-family:sans-serif;text-align:center;margin-top:2em;'>Failed to load site.<br><small>" + String(e).replace(/</g,"&lt;") + "</small></h2>";
+      // Fallback: redirect to the real site if failed to load content
+      win.location.href = href;
     }
   }
   // Intercept all links for same-tab loading
